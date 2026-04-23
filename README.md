@@ -23,6 +23,11 @@ It includes common methods such as append, prepend, find, insert, remove, and tr
 - Remove nodes at a specific index
 - Convert the list to a readable string
 
+## Development Tools
+
+- ESLint for code quality
+- Prettier for code formatting
+
 ## Source
 
 [The Odin Project - Linked Lists](https://www.theodinproject.com/lessons/javascript-linked-lists)
