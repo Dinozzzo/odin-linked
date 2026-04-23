@@ -1,3 +1,5 @@
+export { LinkedList };
+
 function LinkedList() {
   return {
     head: null,
@@ -29,7 +31,7 @@ function LinkedList() {
       return count;
     },
 
-    head() {
+    getHead() {
       if (this.head === null) {
         return undefined;
       } else {
@@ -112,6 +114,66 @@ function LinkedList() {
       string += "null";
       return string;
     },
+
+    insertAt(index, ...values) {
+      if (index < 0 || index > this.size()) {
+        throw new RangeError("Index out of bounds");
+      }
+
+      if (values.length === 0) return;
+
+      if (index === 0) {
+        for (let i = values.length - 1; i >= 0; i--) {
+          this.head = Node(values[i], this.head);
+        }
+        return;
+      }
+
+      let current = this.head;
+      let currentIndex = 0;
+
+      while (currentIndex < index - 1) {
+        current = current.nextNode;
+        currentIndex++;
+      }
+
+      let next = current.nextNode;
+
+      for (let i = 0; i < values.length; i++) {
+        const newNode = Node(values[i]);
+        current.nextNode = newNode;
+        current = newNode;
+      }
+
+      current.nextNode = next;
+    },
+
+    removeAt(index) {
+      if (index < 0 || index >= this.size()) {
+        throw new RangeError("Index out of bounds");
+      }
+
+      if (index === 0) {
+        const value = this.head.value;
+        this.head = this.head.nextNode;
+        return value;
+      }
+
+      let current = this.head;
+      let currentIndex = 0;
+
+      while (currentIndex < index - 1) {
+        current = current.nextNode;
+        currentIndex++;
+      }
+
+      const removedNode = current.nextNode;
+      const value = removedNode.value;
+
+      current.nextNode = removedNode.nextNode;
+
+      return value;
+    },
   };
 }
 
@@ -121,10 +183,3 @@ function Node(value = null, nextNode = null) {
     nextNode,
   };
 }
-
-const list = LinkedList();
-
-list.append(5);
-list.append(10);
-list.append(26);
-console.log(list);
